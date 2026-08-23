@@ -12,3 +12,10 @@
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Un-watermarked concept masters live in /_masters — never served publicly.
+[[redirects]]
+  from = "/_masters/*"
+  to = "/404.html"
+  status = 404
+  force = true
