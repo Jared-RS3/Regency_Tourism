@@ -270,14 +270,17 @@ strong,b{font-weight:600}
 .prep-value small{display:block;font-size:12px;color:#5c554d;margin-top:2px;letter-spacing:0}
 
 /* ---------- 7. LISTS ---------- */
+/* NB: not display:flex — inline <b>/<i> inside a flex li become separate
+   flex items and lay out as columns. Absolute numeral, padded text instead. */
 .numlist li{
-  display:flex;gap:18px;align-items:baseline;
-  padding:14px 0;border-top:1px solid rgba(17,17,17,.12);
+  position:relative;
+  padding:14px 0 14px 42px;border-top:1px solid rgba(17,17,17,.12);
   font-size:14px;line-height:1.6;letter-spacing:-.01em;
 }
 .numlist li:last-child{border-bottom:1px solid rgba(17,17,17,.12)}
 .numlist li>span{
-  flex:none;width:24px;color:var(--warm-deep);
+  position:absolute;left:0;top:calc(14px + .3em);width:24px;
+  color:var(--warm-deep);
   font-size:11px;letter-spacing:.10em;font-variant-numeric:tabular-nums;
 }
 .page-dark .numlist li{border-color:rgba(248,243,236,.14)}
@@ -744,16 +747,18 @@ strong,b{font-weight:600}
     display:block;
     min-height:0;
     max-width:none;width:100%;
+    scroll-margin-top:0;
     break-after:page;page-break-after:always;
     overflow:visible;
   }
   .proposal-page:last-child{break-after:auto;page-break-after:auto}
   .page-cover{min-height:262mm}
+  .page-cover .page-inner{display:flex;flex-direction:column;justify-content:space-between;min-height:228mm}
 
   .page-inner{padding:14mm 0 8mm;display:block}
   .page-head,.page-foot{padding:5mm 0}
   .page-split{display:block;min-height:0}
-  .split-dark,.split-light{padding:10mm 0}
+  .split-dark,.split-light{padding:10mm 6mm}
 
   .cover-glow,.dark-glow,.split-glow,.editorial-rock,.phone-shadow,.process-art{display:none !important}
   .cover-shot,.shot{box-shadow:none}
@@ -774,6 +779,96 @@ strong,b{font-weight:600}
   .sign-grid.three{display:grid;grid-template-columns:repeat(3,1fr);gap:8mm}
   .cost-row{display:flex;flex-direction:row;gap:8mm}
   .cr-figs{justify-content:flex-end;text-align:right}
+
+  /* print type scale — the A4 measure is ~718px, not 900px, so the screen
+     scale would push almost every section onto a near-blank second sheet */
+  .page-inner{padding:6mm 6mm 4mm}
+  .page-head,.page-foot{padding:2.5mm 6mm;font-size:8px}
+  .sec-num{font-size:34px;margin-bottom:10px}
+  .title{font-size:26px}
+  .cover-title{font-size:34px}
+  .contact-title{font-size:34px}
+  .eyebrow{font-size:8.5px;margin-bottom:7px}
+  .h-sub{font-size:9.5px;margin-bottom:8px}
+  .rule{margin:11px 0 13px}
+  .lead{font-size:12.5px;line-height:1.55}
+  .cover-sub{font-size:13px;margin-top:12px}
+  .prose p,p.prose{font-size:12.5px;line-height:1.58}
+  .prose p+p{margin-top:9px}
+  .fineprint{font-size:9.5px;line-height:1.45}
+  .measure{max-width:none}
+
+  .ticklist li{font-size:12px;line-height:1.5}
+  .numlist li{font-size:11.5px;line-height:1.48}
+  .ticklist li+li{margin-top:7px}
+  .ticklist.compact li+li{margin-top:5px}
+  .numlist li{padding:7px 0 7px 38px}
+  .numlist li>span{top:calc(7px + .3em)}
+  .cols li{font-size:11.5px;line-height:1.45}
+  .cols{gap:6px 8mm}
+  .vtimeline li{padding-bottom:15px}
+  .vtimeline p{font-size:11.5px;line-height:1.5}
+  .vtimeline h4{font-size:10.5px;margin-bottom:4px}
+  .steps li{padding:12px 0}
+  .steps li>span{font-size:20px;width:34px}
+  .steps h4{font-size:10.5px;margin-bottom:5px}
+  .steps p{font-size:11.5px;line-height:1.5}
+
+  .cost-row{padding:6px 0}
+  .cr-name{font-size:10.5px}
+  .cr-desc{font-size:9.5px;line-height:1.4;margin-top:2px;max-width:none}
+  .cr-fee{font-size:13px;min-width:76px}
+  .cr-hours{font-size:9.5px}
+  .cost-list.breakdown .cost-row.sub{padding:6px 0}
+  .cost-list.breakdown .cost-row.total{padding-top:13px}
+  .cost-list.breakdown .total .cr-fee{font-size:19px}
+  .ti-price{padding:13px 14px 12px}
+  .ti-price .tp-fig{font-size:25px}
+  .ti-price .tp-note{font-size:10.5px;line-height:1.45}
+  .ti-price-row{margin:5px 0 14px}
+  .ti-bar{height:22px}
+  .ti-seg,.ti-brk{font-size:8.5px}
+  .ti-brackets{margin-top:6px}
+  .ti-brk{padding-top:8px}
+  .price-card{padding:12px 15px 12px}
+  .price-card .pc-fig{font-size:26px}
+  .price-card .pc-note{font-size:10px;line-height:1.42}
+  .band{padding:5px 0}
+  .band-body h4{font-size:10.5px}
+  .band-body p{font-size:9.5px;line-height:1.4;margin-top:2px;max-width:none}
+  .band-fig{font-size:13px;min-width:92px}
+  .band-fig small{font-size:8.5px;margin-top:2px}
+  .ms-stage{padding:10px 0}
+  .ms-row,.ms-total{font-size:11px;padding:3px 0}
+  .ms-total{margin-top:8px;padding-top:8px}
+  .ms-total b{font-size:14px}
+  .sr-figure{padding:15px 17px}
+  .sr-figure .sr-fig{font-size:24px}
+  .sr-figure .sr-note{font-size:10.5px}
+
+  .callout{padding:10px 0;margin:14px 0}
+  .callout p{font-size:11px;line-height:1.5;max-width:none}
+  .term p{font-size:11px;line-height:1.5}
+  .term h5{font-size:9px;margin-bottom:5px}
+  .term+.term{margin-top:14px}
+  .flow-step{padding:13px 0}
+  .flow-step h4{font-size:10.5px;margin-bottom:5px}
+  .flow-step p{font-size:10.5px;line-height:1.45}
+  .why-point p{font-size:11px;line-height:1.5}
+  .shot-note{font-size:10px;line-height:1.4}
+  .shot-name{font-size:9.5px}
+  .shot-bar{padding:5px 9px}
+  .page-inner>.shot{width:78%;margin-left:auto;margin-right:auto}
+  .shot figcaption{padding:8px 10px}
+  .concept-grid{gap:6mm}
+  .prepared{gap:18px 8mm;padding-top:16px}
+  .prep-value{font-size:12px}
+  .prep-value small{font-size:10.5px}
+  .prep-label,.sb-label,.cl-label{font-size:8px}
+  .cl-value{font-size:12px}
+  .contact-list li{padding:9px 0}
+  .sign-line{margin-top:22px}
+  .cover-stage{min-height:0;margin:4px 0}
 
   h1,h2,h3,h4,h5,.eyebrow,.h-sub,.sec-num,.title,.cover-title,.contact-title{
     break-after:avoid;page-break-after:avoid;
